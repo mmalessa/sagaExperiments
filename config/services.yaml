@@ -9,8 +9,8 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\Command\:
         resource: '../src/Command'
-        bind:
-            $commandBus: '@broadway.command_handling.simple_command_bus'
+#        bind:
+#            $commandBus: '@broadway.command_handling.simple_command_bus'
 
 
 
