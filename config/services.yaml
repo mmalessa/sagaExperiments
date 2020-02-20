@@ -7,25 +7,27 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    App\Command\:
-        resource: '../src/Command'
-#        bind:
-#            $commandBus: '@broadway.command_handling.simple_command_bus'
+    App\SfCommand\:
+        resource: '../src/SfCommand'
+        bind:
+            $messageBus: '@messenger.default_bus'
 
 
+    App\CommandHandler\:
+        resource: '%kernel.project_dir%/src/CommandHandler/*'
+        tags:
+            - { name: messenger.message_handler }
+        bind:
+            $messageBus: '@messenger.default_bus'
 
-#    App\Report\ReportCommandHandler:
-#        arguments:
-#            $eventDispatcher: '@event_dispatcher'
-#        tags: ['broadway.command_handler']
 
-#    app.saga.state_repository:
-#        class: 'Mmalessa\Saga\InMemoryStateRepository'
+    App\Saga\:
+        resource: '%kernel.project_dir%/src/Saga/*'
+        tags:
+            - { name: messenger.message_handler }
+        bind:
+            $messageBus: '@messenger.default_bus'
+            $stateRepository: '@app.saga.state_repository'
 
-#    App\Report\ReportSaga:
-#        arguments:
-#            $stateRepository: '@app.saga.state_repository'
-#            $type: 'mysaga'
-#            $commandBus: '@broadway.command_handling.simple_command_bus'
-#        tags: ['kernel.event_subscriber']
-
+    app.saga.state_repository:
+         class: 'App\ProcessManager\InMemoryStateRepository'
