@@ -12,23 +12,20 @@ services:
         bind:
             $commandBus: '@broadway.command_handling.simple_command_bus'
 
-    App\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
 
 
-    App\Report\ReportCommandHandler:
-        arguments:
-            $eventDispatcher: '@event_dispatcher'
-        tags: ['broadway.command_handler']
+#    App\Report\ReportCommandHandler:
+#        arguments:
+#            $eventDispatcher: '@event_dispatcher'
+#        tags: ['broadway.command_handler']
 
-    app.saga.state_repository:
-        class: 'Mmalessa\Saga\InMemoryStateRepository'
+#    app.saga.state_repository:
+#        class: 'Mmalessa\Saga\InMemoryStateRepository'
 
-    App\Report\ReportSaga:
-        arguments:
-            $stateRepository: '@app.saga.state_repository'
-            $type: 'mysaga'
-            $commandBus: '@broadway.command_handling.simple_command_bus'
-        tags: ['kernel.event_subscriber']
+#    App\Report\ReportSaga:
+#        arguments:
+#            $stateRepository: '@app.saga.state_repository'
+#            $type: 'mysaga'
+#            $commandBus: '@broadway.command_handling.simple_command_bus'
+#        tags: ['kernel.event_subscriber']
 

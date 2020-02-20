@@ -20,9 +20,6 @@
     "broadway/uuid-generator": {
         "version": "0.4.0"
     },
-    "mmalessa/saga": {
-        "version": "dev-master"
-    },
     "psr/cache": {
         "version": "1.0.1"
     },
