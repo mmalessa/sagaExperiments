@@ -37,7 +37,7 @@ abstract class Saga
             $reflectionParameter = $method->getParameters()[0];
             $parameterClassName = (string)$reflectionParameter->getType();
 
-            echo "PC: $parameterClassName\n";
+//            echo "PC: $parameterClassName\n";
 
             yield $parameterClassName => ['method' => 'handle'];
         }
