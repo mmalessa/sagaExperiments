@@ -1,0 +1,15 @@
+FROM php:7.4.6-cli
+
+ARG user_id
+ARG group_id
+
+RUN groupadd -g ${group_id} developer && \
+    useradd -m developer -s /bin/bash -u ${user_id} -g ${group_id} && \
+    apt -y update --fix-missing && \
+    curl -sS https://getcomposer.org/installer | php && \
+    chmod +x composer.phar && \
+    mv composer.phar /usr/local/bin/composer && \
+    apt -y install git unzip curl &&\
+    printf "\nsu developer\n" >> /root/.bashrc
+
+WORKDIR /home/developer/application

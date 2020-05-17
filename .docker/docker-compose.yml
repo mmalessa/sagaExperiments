@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  saga-experiments-application:
+    image: 'saga-experiments-application:0.0.1'
+    container_name: 'saga-experiments-application'
+    restart: always
+    build:
+      context: ./dockerfiles/
+      dockerfile: ApplicationDockerfile
+      args:
+        user_id: ${USER_ID}
+        group_id: ${GROUP_ID}
+    volumes:
+      - ~/.ssh:/home/developer/.ssh
+      - ~/.gitconfig:/home/developer/.gitconfig
+      - ..:/home/developer/application
+    hostname: saga-experiments-application
+    command: ['sh', './bin/loop.sh']
